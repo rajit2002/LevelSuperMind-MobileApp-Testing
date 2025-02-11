@@ -1,0 +1,77 @@
+package LevelSuperMind;
+
+import java.net.MalformedURLException;
+import java.util.concurrent.TimeUnit;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+import LevelSuperMind_cap.cap_LevelSuperMind;
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+
+public class LoginFunctionalityTest extends cap_LevelSuperMind {
+
+    public AndroidDriver<AndroidElement> driver;
+
+    // Setup method to initialize the driver
+    @BeforeTest
+    public void setup() throws MalformedURLException {
+        driver = cap();
+        // Set implicit wait for element detection
+        driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+    }
+
+    // Positive test case for the login functionality
+    @Test
+    public void testPositiveLogin() throws InterruptedException {
+        // Step 1: Validate that the app has launched
+        System.out.println("Level Super Mind app launched...");
+
+        // Step 2: Wait explicitly for the app to load
+        Thread.sleep(50000);  // Wait for 30 seconds
+
+        // Step 3: Attempt to find and click the "Sign" button
+        driver.findElement(MobileBy.className("android.widget.Button")).click();
+        System.out.println("Clicked on the 'Sign' button...");
+
+        // Step 4: Click on the "Email" option for login
+        driver.findElement(MobileBy.xpath("//android.widget.TextView[@text='Email']")).click();
+        System.out.println("Clicked on the 'Email' option...");
+
+        // Step 5: Enter a valid email address
+        driver.findElement(MobileBy.className("android.widget.EditText")).sendKeys("rajitgautam2002@gmail.com");
+        System.out.println("Entered the email address...");
+
+        // Step 6: Click on the "Proceed" button to continue
+        driver.findElement(MobileBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]")).click();
+        System.out.println("Clicked on the 'Proceed' button...");
+        
+        // switch app
+        System.out.println("Switching to the gmail...");
+        driver.activateApp("");
+        
+        // Step 2: Wait for the app to load
+       // Thread.sleep(15000); // Adjust as necessary for the app to fully load
+
+        // Step 3: Get the toolbar title text
+        String msg = driver.findElement(MobileBy.xpath("//android.widget.TextView[@resource-id='com.androidsample.generalstore:id/toolbar_title']")).getText();
+        System.out.println("Copied text from General Store app: " + msg); // Output copied text
+        
+        // Step 4: Switch back to the Podcast Player app
+        System.out.println("Switching back to Podcast Player app...");
+        driver.activateApp("au.com.shiftyjelly.pocketcasts"); // Activate the Podcast Player app
+        
+        // Step 5: Wait for the Podcast Player app to load
+        Thread.sleep(5000); // Adjust as necessary for the app to fully load
+
+        // Step 6: Go back to the home screen
+        System.out.println("Returning to the home screen...");
+        driver.pressKey(new KeyEvent(AndroidKey.HOME)); // Press the home button to return to the home screen
+        
+        // Step 7: Wait after pressing the home button
+        Thread.sleep(3000); // Adjust wait time as necessary
+        
+        
+
+    }
+}

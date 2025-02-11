@@ -1,0 +1,63 @@
+package LevelSuperMind;
+
+import java.net.MalformedURLException;
+import java.util.concurrent.TimeUnit;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+import LevelSuperMind_cap.cap_LevelSuperMind;
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+
+public class LoginFunctionalityTest extends cap_LevelSuperMind {
+
+    public AndroidDriver<AndroidElement> driver;
+
+    // Setup method to initialize the driver
+    @BeforeTest
+    public void setup() throws MalformedURLException {
+        driver = cap();
+        // Set implicit wait for element detection
+        driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+    }
+
+    // Positive test case for the login functionality
+    @Test
+    public void testPositiveLogin() throws InterruptedException {
+        // Step 1: Validate that the app has launched
+        System.out.println("Level Super Mind app launched...");
+
+        // Step 2: Wait explicitly for the app to load
+        Thread.sleep(30000);  // Adjusted wait time
+
+        // Step 3: Attempt to find and click the "Sign" button
+        driver.findElement(MobileBy.className("android.widget.Button")).click();
+        System.out.println("Clicked on the 'Sign' button...");
+
+        // Step 4: Click on the "Email" option for login
+        driver.findElement(MobileBy.xpath("//android.widget.TextView[@text='Email']")).click();
+        System.out.println("Clicked on the 'Email' option...");
+
+        // Step 5: Enter a valid email address
+        driver.findElement(MobileBy.className("android.widget.EditText")).sendKeys("rajitgautam2002@gmail.com");
+        System.out.println("Entered the email address...");
+
+        // Step 6: Click on the "Proceed" button to continue
+        driver.findElement(MobileBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]")).click();
+        System.out.println("Clicked on the 'Proceed' button...");
+
+        // Step 7: Switch to the Gmail app to retrieve the OTP
+        System.out.println("Switching to Gmail to retrieve OTP...");
+        driver.activateApp("com.google.android.gm");  // Replace with Gmail package ID if different
+        
+        
+        // Step 8: Find the OTP email and extract the OTP (example assumes OTP is in an email subject line)
+        Thread.sleep(5000);  // Adjust sleep as needed
+        AndroidElement otpEmail = driver.findElement(MobileBy.xpath("//android.view.View[@content-desc='Your OTP is: 123456']"));  // Example XPath
+        String otpText = otpEmail.getAttribute("content-desc");
+        String otp = otpText.replaceAll("[^0-9]", "");  // Extracts only numbers
+        System.out.println("Retrieved OTP: " + otp);
+        
+        
+    }
+    }

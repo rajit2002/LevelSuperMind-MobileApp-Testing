@@ -1,0 +1,58 @@
+package LevelSuperMind;
+
+
+import java.net.MalformedURLException;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.springframework.util.Assert;
+//import org.openqa.selenium.By.ByXPath;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import LevelSuperMind_cap.cap_LevelSuperMind;
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
+
+public class LoginFunctionlityTest extends cap_LevelSuperMind {
+
+    public AndroidDriver<AndroidElement> driver;
+
+    @BeforeTest
+    public void bt() throws MalformedURLException {
+       
+        driver = cap();
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);  // Set implicit wait for element detection
+    }
+    
+    
+    //Positive test case for login functionality
+    
+    @Test (priority =1)
+    public void TestPositiveLogin() throws InterruptedException {
+        // Step 1: Validate that the app has started
+        System.out.println("Level Super Mind app lanuched....");
+        
+    Thread.sleep(10000);
+    driver.findElement(MobileBy.xpath("//android.widget.Button")).click();
+    System.out.println("clicked on the sign btn....");
+    
+    
+        
+        //click on the sign button
+   
+        
+        
+        
+        
+        
+    
+         
+    }
+
+
+
+}
